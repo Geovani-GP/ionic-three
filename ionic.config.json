@@ -1,0 +1,7 @@
+{
+  "name": "Mosandi",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
