@@ -1,19 +1,18 @@
 import { Component, OnInit, ViewChild, ElementRef, Renderer2, ViewEncapsulation } from '@angular/core';
 
-
 import * as THREE from 'three';
 import * as webvrui from 'webvr-ui';
 import VRControls from 'three-vrcontrols-module';
 import VREffect from 'three-vreffect-module';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: 'home.page.html',
-  styleUrls: ['home.page.scss'],
+  selector: 'app-spinning-cube',
+  templateUrl: './spinning-cube.component.html',
+  styleUrls: ['./spinning-cube.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class HomePage implements OnInit {
 
+export class SpinningCubeComponent implements OnInit {
 
   @ViewChild('cubeCanvas') cubeCanvas;
 
@@ -36,40 +35,37 @@ export class HomePage implements OnInit {
   }
 
   ngOnInit() {
-    setTimeout(() => {
-      this.renderer = new THREE.WebGLRenderer({ antialias: false, canvas: this.cubeCanvas.nativeElement });
-      this.controls = new VRControls(this.camera);
-      this.effect = new VREffect(this.renderer);
 
-      this.renderer.xr.enabled = true;
-      this.renderer.setSize(this.width, this.height);
-      this.renderer.setPixelRatio(window.devicePixelRatio);
+    this.renderer = new THREE.WebGLRenderer({ antialias: false, canvas: this.cubeCanvas.nativeElement });
+    this.controls = new VRControls(this.camera);
+    this.effect = new VREffect(this.renderer);
 
-      this.cube = this.createCube(0.25, new THREE.Color('rgb(255,96,70)'));
-      this.cube.position.set(0, this.controls.userHeight, -0.8);
-      this.scene.add(this.cube);
+    this.renderer.xr.enabled = true;
+    this.renderer.setSize(this.width, this.height);
+    this.renderer.setPixelRatio(window.devicePixelRatio);
 
-      this.controls.standing = true;
-      this.camera.position.y = this.controls.userHeight;
+    this.cube = this.createCube(0.25, new THREE.Color('rgb(255,96,70)'));
+    this.cube.position.set(0, this.controls.userHeight, -0.8);
+    this.scene.add(this.cube);
 
-      this.effect.setSize(this.width, this.height);
+    this.controls.standing = true;
+    this.camera.position.y = this.controls.userHeight;
 
-      let loader: THREE.TextureLoader = new THREE.TextureLoader();
+    this.effect.setSize(this.width, this.height);
 
-      loader.load('assets/textures/box.png', (texture) => {
-        this.initScene(texture);
-      });
+    let loader: THREE.TextureLoader = new THREE.TextureLoader();
 
-      window.addEventListener('resize', () => {
-        this.onResize();
-      });
+    loader.load('/src/assets/textures/box.png', (texture) => {
+      this.initScene(texture);
+    });
 
-      window.addEventListener('vrdisplaypresentchange', () => {
-        this.onResize();
-      });
-    }, 1000);
+    window.addEventListener('resize', () => {
+      this.onResize();
+    });
 
-
+    window.addEventListener('vrdisplaypresentchange', () => {
+      this.onResize();
+    });
 
   }
 

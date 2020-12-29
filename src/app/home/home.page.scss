@@ -25,3 +25,17 @@
 #container a {
   text-decoration: none;
 }
+
+
+app-spinning-cube {
+  position: relative;
+}
+
+button.webvr-ui-button {
+
+  position: absolute;
+  width: 250px;
+  bottom: 10px;
+  left: 50px;
+
+}

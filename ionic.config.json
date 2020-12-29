@@ -1,7 +1,10 @@
 {
   "name": "Mosandi",
   "integrations": {
-    "capacitor": {}
+    "capacitor": {
+      "enabled": false
+    },
+    "cordova": {}
   },
   "type": "angular"
 }
